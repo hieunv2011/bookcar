@@ -110,7 +110,7 @@ const MainLayout = () => {
       restrictWidth={restrictWidth}
       bottomBorder={bottomBorder}
       offset={0}
-      grow={false}
+      grow={true}
     >
       <EuiHeader sections={sections} style={{ width: '100%' }} />
       {showSidebar && (
@@ -118,7 +118,7 @@ const MainLayout = () => {
           <Sidebar />
         </EuiPageTemplate.Sidebar>
       )}
-      <EuiPageTemplate.Section grow>
+      <EuiPageTemplate.Section style={{ backgroundColor: '#ECF1F9' }}>
         <Outlet />
       </EuiPageTemplate.Section>
       <EuiPageTemplate.BottomBar paddingSize="s" style={{ position: 'fixed', bottom: 0, width: '100%' }}>

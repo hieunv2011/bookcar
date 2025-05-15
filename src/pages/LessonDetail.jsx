@@ -78,15 +78,15 @@ const comments: EuiCommentProps[] = [
   },
 ];
 
-const Home = () => {
+const LessonDetail = () => {
   return (
     <>
       <EuiPageHeader
-        pageTitle="Xin chào Nguyễn Văn A"
+        pageTitle="Chi tiết bài học sát hạch"
         description="Hệ thống đặt lịch sát hạch tập lái- Trung tâm SHLX AAA"
         rightSideItems={[
-          <EuiButton fill>Add something</EuiButton>,
-          <EuiButton>Do something</EuiButton>,
+          <EuiButton fill iconType="book">Lý thuyết bài học</EuiButton>,
+          <EuiButton iconType="car">Đăng ký xe sát hạch</EuiButton>,
         ]}
       />
       <EuiSpacer size="l" />
@@ -153,4 +153,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default LessonDetail
