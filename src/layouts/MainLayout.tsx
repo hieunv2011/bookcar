@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   EuiPageTemplate,
   EuiPageTemplateProps,
@@ -14,9 +14,14 @@ import {
   EuiIcon,
   EuiAvatar,
   EuiPageHeader,
-} from '@elastic/eui';
-import Sidebar from '../components/Sidebar';
-import { Outlet } from 'react-router-dom';
+  EuiPageSidebar,
+  EuiPage,
+  EuiPageSection,
+  EuiFlyout
+} from "@elastic/eui";
+import Sidebar from "../components/Sidebar";
+import { Outlet } from "react-router-dom";
+import Header from "../components/Header";
 
 const renderLogo = (
   <EuiHeaderLogo
@@ -35,21 +40,21 @@ const renderSpaces = (
 
 const breadcrumbs: EuiBreadcrumb[] = [
   {
-    text: 'Management',
-    href: '#',
+    text: "Management",
+    href: "#",
     onClick: (e) => {
       e.preventDefault();
     },
   },
   {
-    text: 'Users',
-    href: '#',
+    text: "Users",
+    href: "#",
     onClick: (e) => {
       e.preventDefault();
     },
   },
   {
-    text: 'Create',
+    text: "Create",
   },
 ];
 
@@ -77,32 +82,9 @@ const renderApps = (
 
 const MainLayout = () => {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
-
-  const renderMenuButton = (
-    <EuiHeaderSectionItemButton
-      aria-label="Toggle sidebar menu"
-      onClick={() => setShowSidebar(!showSidebar)}
-    >
-      <EuiIcon type="menu" size="m" />
-    </EuiHeaderSectionItemButton>
-  );
-
-  const sections: EuiHeaderSections[] = [
-    {
-      items: [renderMenuButton, renderLogo, renderSpaces],
-      breadcrumbs: breadcrumbs,
-      breadcrumbProps: {
-        'aria-label': 'Header sections breadcrumbs',
-      },
-    },
-    {
-      items: [renderSearch, renderUser, renderApps],
-    },
-  ];
-
-  const panelled: EuiPageTemplateProps['panelled'] = undefined;
-  const restrictWidth: EuiPageTemplateProps['restrictWidth'] = false;
-  const bottomBorder: EuiPageTemplateProps['bottomBorder'] = 'extended';
+  const panelled: EuiPageTemplateProps["panelled"] = undefined;
+  const restrictWidth: EuiPageTemplateProps["restrictWidth"] = false;
+  const bottomBorder: EuiPageTemplateProps["bottomBorder"] = "extended";
 
   return (
     <EuiPageTemplate
@@ -112,17 +94,32 @@ const MainLayout = () => {
       offset={0}
       grow={true}
     >
-      <EuiHeader sections={sections} style={{ width: '100%' }} />
+      <Header
+        onOpenSidebar={() => setShowSidebar(true)}
+        onOpenRightMenu={() => alert('Right menu clicked!')}
+      />
       {showSidebar && (
-        <EuiPageTemplate.Sidebar>
+        <EuiFlyout
+          ownFocus
+          onClose={() => setShowSidebar(false)}
+          side="left"
+          size="380px"
+        >
           <Sidebar />
-        </EuiPageTemplate.Sidebar>
+        </EuiFlyout>
       )}
-      <EuiPageTemplate.Section style={{ backgroundColor: '#ECF1F9' }}>
+      <EuiPageTemplate.Section style={{ backgroundColor: "#ECF1F9" }}>
         <Outlet />
       </EuiPageTemplate.Section>
-      <EuiPageTemplate.BottomBar paddingSize="s" style={{ position: 'fixed', bottom: 0, width: '100%' }}>
-        <EuiFlexGroup alignItems="center" justifyContent="spaceBetween" responsive={false}>
+      <EuiPageTemplate.BottomBar
+        paddingSize="s"
+        style={{ position: "fixed", bottom: 0, width: "100%" }}
+      >
+        <EuiFlexGroup
+          alignItems="center"
+          justifyContent="spaceBetween"
+          responsive={false}
+        >
           <EuiFlexItem grow={false}>
             <EuiText size="s">
               <p>© 2025 Hệ thống đặt giờ tập lái. All rights reserved.</p>

@@ -12,7 +12,7 @@ import LessonDetail from './pages/LessonDetail';
 function App() {
   return (
     <div className="App">
-      <EuiProvider>
+      <EuiProvider colorMode="light"> 
         <Router>
           <Routes>
             {/* Routes without MainLayout */}

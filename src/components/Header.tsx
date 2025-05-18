@@ -9,7 +9,13 @@ import {
   EuiAvatar,
 } from '@elastic/eui';
 
-const Header = () => {
+const Header = ({
+  onOpenSidebar,
+  onOpenRightMenu
+}: {
+  onOpenSidebar?: () => void;
+  onOpenRightMenu?: () => void;
+}) => {
   const renderLogo = (
     <EuiHeaderLogo
       iconType="logoElastic"
@@ -17,6 +23,18 @@ const Header = () => {
       onClick={(e) => e.preventDefault()}
       aria-label="Go to home page"
     />
+  );
+
+  const renderMenuLeft = (
+    <EuiHeaderSectionItemButton aria-label="Open sidebar" onClick={onOpenSidebar}>
+      <EuiIcon type="menu" size="m" />
+    </EuiHeaderSectionItemButton>
+  );
+
+  const renderMenuRight = (
+    <EuiHeaderSectionItemButton aria-label="Open right menu" onClick={onOpenRightMenu}>
+      <EuiIcon type="menuRight" size="m" />
+    </EuiHeaderSectionItemButton>
   );
 
   const renderSpaces = (
@@ -69,14 +87,14 @@ const Header = () => {
 
   const sections: EuiHeaderSections[] = [
     {
-      items: [renderLogo, renderSpaces],
+      items: [renderMenuLeft, renderLogo, renderSpaces],
       breadcrumbs: breadcrumbs,
       breadcrumbProps: {
         'aria-label': 'Header sections breadcrumbs',
       },
     },
     {
-      items: [renderSearch, renderUser, renderApps],
+      items: [renderSearch, renderUser, renderApps, renderMenuRight],
     },
   ];
 
