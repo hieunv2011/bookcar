@@ -7,7 +7,7 @@ import ResetPassword from './pages/ResetPassword';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import LessonList from './pages/LessonList';
-import LessonDetail from './pages/LessonDetail';
+import LessonDetail from './pages/LessonDetailt';
 
 function App() {
   return (

@@ -14,7 +14,7 @@ import {
 
 const deploymentsList: EuiListGroupProps['listItems'] = [
   {
-    label: 'combining-binaries',
+    label: 'Học lý thuyết',
     iconType: 'logoAzureMono',
     size: 's',
   },
@@ -27,32 +27,30 @@ const deploymentsList: EuiListGroupProps['listItems'] = [
 
 const TopNavLinks: EuiPinnableListGroupItemProps[] = [
   {
-    label: 'Home',
+    label: 'Trang chủ',
     iconType: 'home',
     isActive: true,
     pinnable: false,
+    href: '/home',
   },
-  { label: 'Dashboards', pinned: true },
-  { label: 'Dev tools', pinned: true },
-  { label: 'Maps', pinned: true },
 ];
 
 const KibanaNavLinks: EuiPinnableListGroupItemProps[] = [
-  { label: 'Discover' },
-  { label: 'Visualize' },
-  { label: 'Dashboards' },
-  { label: 'Canvas' },
-  { label: 'Maps' },
-  { label: 'Machine Learning' },
-  { label: 'Graph' },
+  { label: 'Thông tin cá nhân' },
+  { label: 'Hồ sơ cá nhân' },
+];
+const BookNavLinks: EuiPinnableListGroupItemProps[] = [
+  { label: 'Danh sách bài học thực hành', href: '/lesson-list' },
+  { label: 'Đăng ký xe thực hành' },
+  { label: 'Bài học đã hoàn thành' },
 ];
 
 const DeploymentsGroup = (
   <EuiCollapsibleNavGroup
     title={
       <span>
-        <small style={{ fontWeight: 'normal' }}>Deployment</small> <br />
-        <strong>personal-databoard</strong>
+        <small style={{ fontWeight: 'normal' }}>Trung tâm SHLX XXX</small> <br />
+        <strong>Hệ thống đặt xe thực hành</strong>
       </span>
     }
     iconType="logoGCPMono"
@@ -63,34 +61,6 @@ const DeploymentsGroup = (
   >
     <EuiListGroup listItems={deploymentsList} flush />
     <EuiSpacer size="s" />
-    <EuiButton fullWidth>Manage deployments</EuiButton>
-  </EuiCollapsibleNavGroup>
-);
-
-const SecurityGroup = (
-  <EuiCollapsibleNavGroup
-    background="light"
-    iconType="logoSecurity"
-    title="Elastic Security"
-    isCollapsible={true}
-    initialIsOpen={true}
-    arrowDisplay="none"
-    extraAction={
-      <EuiButtonIcon
-        aria-label="Hide and never show again"
-        title="Hide and never show again"
-        iconType="cross"
-      />
-    }
-  >
-    <EuiText size="s" color="subdued" style={{ padding: '0 8px 8px' }}>
-      <p>
-        Threat prevention, detection, and response with SIEM and endpoint
-        security.
-        <br />
-        <EuiLink>Learn more</EuiLink>
-      </p>
-    </EuiText>
   </EuiCollapsibleNavGroup>
 );
 
@@ -108,8 +78,8 @@ const Sidebar = () => (
       />
     </EuiCollapsibleNavGroup>
     <EuiCollapsibleNavGroup
-      title="Kibana"
-      iconType="logoKibana"
+      title="Người dùng"
+      iconType="users"
       isCollapsible={true}
       initialIsOpen={true}
     >
@@ -122,7 +92,21 @@ const Sidebar = () => (
         size="s"
       />
     </EuiCollapsibleNavGroup>
-    {SecurityGroup}
+    <EuiCollapsibleNavGroup
+      title="Đặt lịch tập lái"
+      iconType="calendar"
+      isCollapsible={true}
+      initialIsOpen={true}
+    >
+      <EuiPinnableListGroup
+        listItems={BookNavLinks}
+        onPinClick={() => {}}
+        maxWidth="none"
+        color="subdued"
+        gutterSize="none"
+        size="s"
+      />
+    </EuiCollapsibleNavGroup>
   </>
 );
 

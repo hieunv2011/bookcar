@@ -15,6 +15,7 @@ import {
   EuiSpacer,
 } from "@elastic/eui";
 import moment from "moment";
+import MyTimePicker from "./test/MyTimePicker";
 
 const RegisterModal = ({
   isVisible,
@@ -47,7 +48,11 @@ const RegisterModal = ({
   };
 
   return (
-    <EuiModal onClose={onClose} initialFocus="[name=username]">
+    <EuiModal
+      onClose={onClose}
+      initialFocus="[name=username]"
+      style={{ width: "500px" }}
+    >
       <EuiModalHeader>
         <EuiModalHeaderTitle>Đăng ký xe sát hạch</EuiModalHeaderTitle>
       </EuiModalHeader>
@@ -81,6 +86,10 @@ const RegisterModal = ({
           onChange={handleChange}
           dateFormat="HH:mm"
           timeFormat="HH:mm"
+          excludeTimes={[
+            moment().hour(12).minute(0),
+            moment().hour(13).minute(30),
+          ]}
         />
       </EuiModalBody>
 
