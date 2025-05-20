@@ -1,15 +1,11 @@
 import React from 'react';
 import {
   EuiCollapsibleNavGroup,
-  EuiText,
   EuiListGroup,
   EuiListGroupProps,
   EuiPinnableListGroup,
   EuiPinnableListGroupItemProps,
   EuiSpacer,
-  EuiButton,
-  EuiButtonIcon,
-  EuiLink,
 } from '@elastic/eui';
 
 const deploymentsList: EuiListGroupProps['listItems'] = [

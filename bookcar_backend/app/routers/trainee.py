@@ -1,10 +1,18 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, HTTPException, Body, Response
 from sqlalchemy.orm import Session
+from jose import jwt
+from datetime import timedelta, datetime
+from passlib.context import CryptContext
+from pydantic import BaseModel
 from app.database import SessionLocal
 from app.schemas.trainee import TraineeCreate, TraineeOut
 from app.crud import trainee
+from app.models.trainee import Trainee
+from app.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
 router = APIRouter(prefix="/trainees", tags=["Trainees"])
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def get_db():
     db = SessionLocal()
@@ -26,3 +34,42 @@ def read_trainees(
     skip = (page - 1) * page_size
     limit = page_size
     return trainee.get_trainees(db, skip=skip, limit=limit)
+
+class TraineeLoginRequest(BaseModel):
+    so_cmt: str
+    password: str = ""
+
+@router.post("/login")
+def login_trainee(
+    body: TraineeLoginRequest = Body(...),
+    db: Session = Depends(get_db),
+    response: Response = None
+):
+    trainee = db.query(Trainee).filter(Trainee.so_cmt == body.so_cmt).first()
+    if not trainee:
+        raise HTTPException(status_code=401, detail="Trainee not found")
+    if trainee.password:
+        if not pwd_context.verify(body.password, trainee.password):
+            raise HTTPException(status_code=401, detail="Wrong password")
+    data = {
+        "sub": str(trainee.id),
+        "so_cmt": trainee.so_cmt,
+        "ho_va_ten": trainee.ho_va_ten,
+        "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    }
+    token = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+    # Set httpOnly cookie
+    response.set_cookie(
+        key="access_token",
+        value=token,
+        httponly=True,
+        max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        expires=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        samesite="lax",
+        secure=False  # Để True nếu dùng HTTPS
+    )
+    return {
+        "trainee_id": trainee.id,
+        "ho_va_ten": trainee.ho_va_ten,
+        "so_cmt": trainee.so_cmt
+    }

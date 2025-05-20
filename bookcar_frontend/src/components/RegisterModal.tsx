@@ -6,16 +6,11 @@ import {
   EuiModalBody,
   EuiModalFooter,
   EuiButton,
-  EuiFieldText,
-  EuiForm,
-  EuiFormRow,
   EuiFlexGroup,
   EuiFlexItem,
   EuiDatePicker,
-  EuiSpacer,
 } from "@elastic/eui";
 import moment from "moment";
-import MyTimePicker from "./test/MyTimePicker";
 
 const RegisterModal = ({
   isVisible,

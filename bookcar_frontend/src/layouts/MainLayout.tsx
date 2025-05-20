@@ -1,22 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   EuiPageTemplate,
   EuiPageTemplateProps,
   EuiFlexGroup,
   EuiFlexItem,
   EuiText,
-  EuiButton,
   EuiBreadcrumb,
-  EuiHeader,
   EuiHeaderLogo,
   EuiHeaderSectionItemButton,
-  EuiHeaderSections,
   EuiIcon,
   EuiAvatar,
-  EuiPageHeader,
-  EuiPageSidebar,
-  EuiPage,
-  EuiPageSection,
   EuiFlyout
 } from "@elastic/eui";
 import Sidebar from "../components/Sidebar";
@@ -32,53 +25,6 @@ const renderLogo = (
   />
 );
 
-const renderSpaces = (
-  <EuiHeaderSectionItemButton aria-label="Spaces menu">
-    <EuiAvatar type="space" name="Sales Team" size="s" />
-  </EuiHeaderSectionItemButton>
-);
-
-const breadcrumbs: EuiBreadcrumb[] = [
-  {
-    text: "Management",
-    href: "#",
-    onClick: (e) => {
-      e.preventDefault();
-    },
-  },
-  {
-    text: "Users",
-    href: "#",
-    onClick: (e) => {
-      e.preventDefault();
-    },
-  },
-  {
-    text: "Create",
-  },
-];
-
-const renderSearch = (
-  <EuiHeaderSectionItemButton disabled aria-label="Sitewide search">
-    <EuiIcon type="search" size="m" />
-  </EuiHeaderSectionItemButton>
-);
-
-const renderUser = (
-  <EuiHeaderSectionItemButton disabled aria-label="Account menu">
-    <EuiAvatar isDisabled name="John Username" size="s" />
-  </EuiHeaderSectionItemButton>
-);
-
-const renderApps = (
-  <EuiHeaderSectionItemButton
-    disabled
-    aria-label="Apps menu with 1 new app"
-    notification="1"
-  >
-    <EuiIcon type="apps" size="m" />
-  </EuiHeaderSectionItemButton>
-);
 
 const MainLayout = () => {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
