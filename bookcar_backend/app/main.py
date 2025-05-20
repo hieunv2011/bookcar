@@ -4,8 +4,7 @@ from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.handlers import exception_handler
 
-from app.routers import branch, vehicle
-from app.routers import test
+from app.routers import branch, vehicle, course, trainee, test
 
 app = FastAPI()
 
@@ -16,6 +15,8 @@ app.add_exception_handler(Exception, exception_handler.generic_exception_handler
 
 app.include_router(branch.router)
 app.include_router(vehicle.router)
+app.include_router(course.router)
+app.include_router(trainee.router)
 app.include_router(test.router)
 
 @app.get("/")
