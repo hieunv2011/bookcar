@@ -13,7 +13,6 @@ def create_branch(db: Session, branch: BranchCreate):
         return db_branch
     except IntegrityError as e:
         db.rollback()
-        # Check for duplicate id error
         if 'unique constraint' in str(e.orig).lower() or 'duplicate key value' in str(e.orig).lower():
             raise Exception(f"id '{db_branch.id}' already exists")
         raise
