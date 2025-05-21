@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useState, useEffect } from 'react';
 import {
   EuiBasicTable,
   EuiBasicTableColumn,
@@ -10,7 +10,8 @@ import {
   EuiSpacer,
 } from '@elastic/eui';
 import RegisterModal from '../components/RegisterModal';
-// Define the type for the lesson data
+import { useDrivingLessonsByCourse } from '../hooks/useDrivingLessonsByCourse';
+
 interface Lesson {
   id: string;
   start_date: string;
@@ -139,6 +140,13 @@ const LessionList = () => {
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(5);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const { lessons, loading, error } = useDrivingLessonsByCourse(10);
+
+  useEffect(() => {
+    if (!loading && !error) {
+      // console.log('Driving lessons:', lessons);
+    }
+  }, [lessons, loading, error]);
 
   const onTableChange = ({ page }: { page: { index: number; size: number } }) => {
     setPageIndex(page.index);

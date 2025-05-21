@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text, JSON, ForeignKey
+from sqlalchemy.sql import func
 from app.database import Base
 
 class Course(Base):
@@ -39,7 +40,7 @@ class Course(Base):
     branch_id = Column(Integer, ForeignKey("branches.id"))
     synced = Column(Boolean, default=False)
     sync_error = Column(Text)
-    created_date = Column(DateTime)
-    updated_date = Column(DateTime)
+    created_date = Column(DateTime, default=func.now())
+    updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     created_by = Column(String)
     updated_by = Column(String)

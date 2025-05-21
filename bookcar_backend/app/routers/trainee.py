@@ -10,7 +10,7 @@ from app.crud import trainee
 from app.models.trainee import Trainee
 from app.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
-router = APIRouter(prefix="/trainees", tags=["Trainees"])
+router = APIRouter(prefix="/api/v1/trainees", tags=["Trainees"])
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -68,8 +68,9 @@ def login_trainee(
         samesite="lax",
         secure=False  # Để True nếu dùng HTTPS
     )
-    return {
-        "trainee_id": trainee.id,
-        "ho_va_ten": trainee.ho_va_ten,
-        "so_cmt": trainee.so_cmt
-    }
+    # Trả về toàn bộ thông tin trainee (bỏ các trường private nếu có)
+    trainee_data = {k: v for k, v in trainee.__dict__.items() if not k.startswith('_')}
+    return trainee_data
+
+
+#Logic hiện tại là password null, sẽ sửa lại sau.

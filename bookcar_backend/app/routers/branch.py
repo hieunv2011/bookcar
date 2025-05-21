@@ -4,7 +4,7 @@ from app.database import SessionLocal
 from app.schemas.branch import BranchCreate, BranchOut
 from app.crud import branch
 
-router = APIRouter(prefix="/branches", tags=["Branches"])
+router = APIRouter(prefix="/api/v1/branches", tags=["Branches"])
 
 def get_db():
     db = SessionLocal()

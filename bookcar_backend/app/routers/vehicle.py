@@ -4,7 +4,7 @@ from app.database import SessionLocal
 from app.schemas.vehicle import VehicleCreate, VehicleOut
 from app.crud import vehicle
 
-router = APIRouter(prefix="/vehicles", tags=["Vehicles"])
+router = APIRouter(prefix="/api/v1/vehicles", tags=["Vehicles"])
 
 def get_db():
     db = SessionLocal()

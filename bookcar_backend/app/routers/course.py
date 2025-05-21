@@ -4,7 +4,7 @@ from app.database import SessionLocal
 from app.schemas.course import CourseCreate, CourseOut
 from app.crud import course
 
-router = APIRouter(prefix="/courses", tags=["Courses"])
+router = APIRouter(prefix="/api/v1/courses", tags=["Courses"])
 
 def get_db():
     db = SessionLocal()

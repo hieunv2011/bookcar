@@ -1,0 +1,91 @@
+import { http } from './http';
+
+export interface TraineeLoginRequest {
+  so_cmt: string;
+  password?: string;
+}
+
+export interface TraineeInfo {
+  id: number;
+  so_tt: number;
+  ma_dk: string;
+  ho_ten_dem: string;
+  ten: string;
+  ho_va_ten: string;
+  ngay_sinh: string;
+  ma_quoc_tich: string;
+  ten_quoc_tich: string | null;
+  noi_tt: string | null;
+  noi_tt_ma_dvhc: string;
+  noi_tt_ma_dvql: string;
+  noi_ct: string | null;
+  noi_ct_ma_dvhc: string;
+  noi_ct_ma_dvql: string;
+  so_cmt: string;
+  ngay_cap_cmt: string;
+  noi_cap_cmt: string;
+  gioi_tinh: string;
+  ho_va_ten_in: string;
+  so_ho_so: string;
+  ma_dv_nhan_hoso: string;
+  ten_dv_nhan_hoso: string | null;
+  ngay_nhan_hoso: string;
+  nguoi_nhan_hoso: string | null;
+  ma_loai_hoso: string;
+  ten_loai_hoso: string | null;
+  anh_chan_dung: string;
+  chat_luong_anh: number;
+  ngay_thu_nhan_anh: string;
+  nguoi_thu_nhan_anh: string;
+  so_gplx_da_co: string | null;
+  hang_gplx_da_co: string;
+  dv_cap_gplx_daco: string;
+  ten_dv_cap_gplx_daco: string | null;
+  noi_cap_gplx_daco: string;
+  ngay_cap_gplx_daco: string;
+  ngay_hh_gplx_daco: string | null;
+  ngay_tt_gplx_daco: string;
+  ma_noi_hoc_laixe: string;
+  ten_noi_hoc_laixe: string | null;
+  nam_hoc_laixe: number;
+  so_nam_laixe: number;
+  so_km_antoan: number;
+  giay_cnsk: string;
+  hinh_thuc_cap: string;
+  hang_gplx: string;
+  hang_daotao: string;
+  rfid_card: string | null;
+  indoor_hour: number;
+  outdoor_hour: number;
+  fingerprint_count: number;
+  face_count: number;
+  course_id: number;
+  rfid_card_name: string | null;
+  outdoor_distance: number;
+  outdoor_session_count: number;
+  faceid_failed_count: number;
+  faceid_success_count: number;
+  status1: number;
+  status2: number;
+  synced: boolean;
+  sync_error: string | null;
+  synced_outdoor_hours: number;
+  synced_outdoor_distance: number;
+  synced_verified_date: string | null;
+  synced_outdoor_status: number;
+  anh_chan_dung_url: string | null;
+  night_duration: number;
+  auto_duration: number;
+  inactive_face_count: number;
+  lms_status: number;
+  password: string | null;
+  created_date: string;
+  updated_date: string;
+  created_by: string;
+  updated_by: string;
+}
+
+export const loginTrainee = async (data: TraineeLoginRequest) => {
+  const res = await http.post<TraineeInfo>('/trainees/login', data);
+  return res.data;
+};
