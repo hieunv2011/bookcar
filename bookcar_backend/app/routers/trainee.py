@@ -51,6 +51,9 @@ def login_trainee(
     if trainee.password:
         if not pwd_context.verify(body.password, trainee.password):
             raise HTTPException(status_code=401, detail="Wrong password")
+    # Lấy tất cả course_id của người này (cùng so_cmt)
+    all_trainees = db.query(Trainee).filter(Trainee.so_cmt == body.so_cmt).all()
+    course_ids = [t.course_id for t in all_trainees if t.course_id is not None]
     data = {
         "sub": str(trainee.id),
         "so_cmt": trainee.so_cmt,
@@ -58,7 +61,6 @@ def login_trainee(
         "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     }
     token = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
-    # Set httpOnly cookie
     response.set_cookie(
         key="access_token",
         value=token,
@@ -66,11 +68,8 @@ def login_trainee(
         max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         expires=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         samesite="lax",
-        secure=False  # Để True nếu dùng HTTPS
+        secure=False
     )
-    # Trả về toàn bộ thông tin trainee (bỏ các trường private nếu có)
     trainee_data = {k: v for k, v in trainee.__dict__.items() if not k.startswith('_')}
+    trainee_data["course_ids"] = course_ids
     return trainee_data
-
-
-#Logic hiện tại là password null, sẽ sửa lại sau.

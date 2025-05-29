@@ -8,6 +8,8 @@ import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import LessonList from './pages/LessonList';
 import LessonDetail from './pages/LessonDetailt';
+import Test from './pages/Test';
+import ParticipantList from './components/Test/ParticipantList';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/lesson-list" element={<LessonList />} />
               <Route path="/lesson-detail" element={<LessonDetail />} />
+              <Route path="/test" element={<Test />} />
+              <Route path="/participant" element={<ParticipantList />} />
             </Route>
           </Routes>
         </Router>

@@ -83,6 +83,7 @@ export interface TraineeInfo {
   updated_date: string;
   created_by: string;
   updated_by: string;
+  course_ids?: number[];
 }
 
 export const loginTrainee = async (data: TraineeLoginRequest) => {

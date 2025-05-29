@@ -1,8 +1,8 @@
-"""add trainees table
+"""Change nullable trainee_id in Participants Table
 
-Revision ID: b16e604a4572
-Revises: c5a8cf3070bd
-Create Date: 2025-05-20 10:43:44.763636
+Revision ID: 37284d6041bd
+Revises: 1ca833ed7911
+Create Date: 2025-05-26 10:48:07.578035
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'b16e604a4572'
-down_revision: Union[str, None] = 'c5a8cf3070bd'
+revision: str = '37284d6041bd'
+down_revision: Union[str, None] = '1ca833ed7911'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
