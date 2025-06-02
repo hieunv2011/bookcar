@@ -1,42 +1,35 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
-import { useState } from 'react';
-import React from 'react';
 import { traineeAtom } from '../atoms/trainee';
-import { loginTrainee, TraineeLoginRequest } from '../api/traineeApi';
+import { loginTrainee, TraineeLoginRequest, TraineeInfo } from '../api/traineeApi';
 
 export function useTrainee() {
+  const queryClient = useQueryClient();
   const [trainee, setTrainee] = useAtom(traineeAtom);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  const login = async (data: TraineeLoginRequest) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const info = await loginTrainee(data);
-      setTrainee(info);
-      localStorage.setItem('trainee', JSON.stringify(info)); // Lưu vào localStorage
-      setLoading(false);
-      return info;
-    } catch (err: any) {
-      setError(err?.response?.data?.detail || 'Đăng nhập thất bại');
-      setLoading(false);
-      return null;
-    }
-  };
-
-  // Load lại từ localStorage khi app khởi động
-  React.useEffect(() => {
-    if (!trainee) {
-      const saved = localStorage.getItem('trainee');
-      if (saved) setTrainee(JSON.parse(saved));
-    }
-  }, []);
+  const mutation = useMutation<TraineeInfo, any, TraineeLoginRequest>({
+    mutationFn: loginTrainee,
+    onSuccess: (data) => {
+      setTrainee(data);
+      localStorage.setItem('trainee', JSON.stringify(data));
+      queryClient.invalidateQueries({ queryKey: ['trainee'] });
+    },
+    onError: (error) => {
+      // bạn có thể xử lý lỗi chung ở đây nếu muốn
+    },
+  });
 
   const logout = () => {
     setTrainee(null);
-    localStorage.removeItem('trainee'); // Xoá khỏi localStorage khi logout
+    localStorage.removeItem('trainee');
+    queryClient.removeQueries({ queryKey: ['trainee'] });
   };
 
-  return { trainee, login, logout, loading, error };
+  return {
+    trainee,
+    login: mutation.mutateAsync,
+    logout,
+    loading: mutation.isPending,
+    error: mutation.error?.response?.data?.detail || null,
+  };
 }

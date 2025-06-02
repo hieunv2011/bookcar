@@ -5,7 +5,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.handlers import exception_handler
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import branch, vehicle, course, trainee, test, driving_lesson
+from app.routers import branch, vehicle, course, trainee, test, user, customer
 
 app = FastAPI()
 
@@ -27,10 +27,10 @@ app.add_exception_handler(Exception, exception_handler.generic_exception_handler
 
 app.include_router(branch.router)
 app.include_router(vehicle.router)
-app.include_router(course.router)
 app.include_router(trainee.router)
 app.include_router(test.router)
-app.include_router(driving_lesson.router)
+app.include_router(user.router)
+app.include_router(customer.router)
 
 @app.get("/")
 def read_root():

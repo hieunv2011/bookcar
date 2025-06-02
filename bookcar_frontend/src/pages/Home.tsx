@@ -18,7 +18,7 @@ import {
 } from "@elastic/eui";
 import { Badge, Calendar } from "antd";
 import { useAtom } from "jotai";
-import { globalToastsAtom } from "../atoms/trainee";
+import { globalTraineeToastsAtom } from "../atoms/trainee";
 
 const body = (
   <EuiText size="s">
@@ -177,7 +177,7 @@ const keyLabels: Record<string, string> = {
 };
 
 const Home = () => {
-  const [toasts, setToasts] = useAtom(globalToastsAtom);
+  const [toasts, setToasts] = useAtom(globalTraineeToastsAtom);
   // Lấy trainee từ localStorage thay vì atom
   const trainee = React.useMemo(() => {
     const saved = localStorage.getItem('trainee');

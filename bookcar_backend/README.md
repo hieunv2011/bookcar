@@ -120,3 +120,8 @@ alembic upgrade head
 - Có thể chỉnh sửa file `.env` để đổi thông tin kết nối DB.
 - Khi thay đổi models, cần chạy lại script tạo bảng.
 - Khi thay đổi models, hãy tạo migration mới và upgrade DB bằng Alembic thay vì xoá/tạo lại bảng thủ công.
+
+
+
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+

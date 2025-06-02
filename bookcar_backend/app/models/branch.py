@@ -9,7 +9,7 @@ class Branch(Base):
     name = Column(String, index=True)
     short_name = Column(String)
     # province_id = Column(Integer) 
-    customer_id = Column(Integer)
+    customer_id = Column(Integer, ForeignKey("customers.id"), nullable=True)
     config = Column(JSON)
 
     created_date = Column(DateTime, server_default=func.now())

@@ -57,6 +57,7 @@ def login_trainee(
     data = {
         "sub": str(trainee.id),
         "so_cmt": trainee.so_cmt,
+        "role": "trainee",
         "ho_va_ten": trainee.ho_va_ten,
         "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     }
